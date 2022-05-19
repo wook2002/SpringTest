@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 1) mybatis-config에서 연결해야됨 -->
+<!-- 2) selectListCount에서 parameterType="board" 들어오는게 없으니 필요 없음  -->
+<!-- 3) selectListCount에서  resultMap쓸 필요가 없었음 -->
+<!-- 
+	 a) resultMap="boardResultSet
+	 b) resultType="_int"
+ -->
+
+
+<mapper namespace="boardMapper">
+
+	<resultMap id="boardResultSet" type="Board">
+		<id column="BOARD_NO" property="boardNo" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_WRITER" property="boardWriter" />
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="COUNT" property="count" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+
+	<!-- 
+	<select id="selectListCount" resultMap="boardResultSet">
+		SELECT COUNT(*) FROM BOARD 
+		WHERE STATUS='Y';
+	</select>
+	 -->
+	 
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM BOARD 
+		WHERE STATUS='Y'
+	</select>
+	
+	
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE STATUS='Y'
+		ORDER BY BOARD_NO DESC
+	</select>
+
+
+
+</mapper>
